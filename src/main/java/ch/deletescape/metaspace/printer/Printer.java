@@ -17,14 +17,7 @@ public final class Printer {
    */
   public static final MutablePrinter err = new MutablePrinter(System.err);
   /**
-   * {@link MutablePrinter} printing to {@link System#out}, initially muted
+   * {@link MutablePrinter} printing to {@link System#out}
    */
   public static final MutablePrinter debug = new MutablePrinter(System.out);
-  static {
-    debug.mute(true);
-  }
-
-  public static void debug() {
-    debug.mute(false);
-  }
 }

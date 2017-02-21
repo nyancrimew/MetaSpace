@@ -9,17 +9,28 @@ public class MetaSpace {
   @Parameter(names = { "-D", "--debug" }, description = "Debug mode")
   private boolean debug = false;
 
+  @Parameter(names = { "-q", "--quiet" }, description = "Mute all output")
+  private boolean quiet = false;
+  @Parameter(names = { "--usage", "--help" }, description = "Display usage information", help = true)
+  private boolean usage = false;
+
   public static void main(String[] args) {
     MetaSpace metaSpace = new MetaSpace();
-    new JCommander(metaSpace, args);
-    metaSpace.run();
+    JCommander jc = new JCommander(metaSpace, args);
+    Printer.debug.mute(!metaSpace.debug || metaSpace.quiet);
+    Printer.out.mute(metaSpace.quiet);
+    if (metaSpace.usage) {
+      jc.setProgramName("metaspace");
+      StringBuilder sb = new StringBuilder();
+      jc.usage(sb);
+      Printer.out.println(sb);
+    } else {
+      metaSpace.run();
+    }
   }
 
   private void run() {
-    if (debug) {
-      Printer.debug();
-      Printer.debug.println("DEBUGGING: on");
-    }
+    Printer.out.println("MetaSpace - A space transcending ordinary physical space");
   }
 
 }
