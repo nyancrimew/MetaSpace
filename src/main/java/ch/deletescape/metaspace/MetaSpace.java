@@ -8,7 +8,6 @@ import ch.deletescape.metaspace.printer.Printer;
 public class MetaSpace {
   @Parameter(names = { "-D", "--debug" }, description = "Debug mode")
   private boolean debug = false;
-
   @Parameter(names = { "-q", "--quiet" }, description = "Mute all output")
   private boolean quiet = false;
   @Parameter(names = { "--usage", "--help" }, description = "Display usage information", help = true)
@@ -20,10 +19,7 @@ public class MetaSpace {
     Printer.debug.mute(!metaSpace.debug || metaSpace.quiet);
     Printer.out.mute(metaSpace.quiet);
     if (metaSpace.usage) {
-      jc.setProgramName("metaspace");
-      StringBuilder sb = new StringBuilder();
-      jc.usage(sb);
-      Printer.out.println(sb);
+      usage(jc);
     } else {
       metaSpace.run();
     }
@@ -33,4 +29,10 @@ public class MetaSpace {
     Printer.out.println("MetaSpace - A space transcending ordinary physical space");
   }
 
+  private static void usage(JCommander jc) {
+    jc.setProgramName("metaspace");
+    StringBuilder sb = new StringBuilder();
+    jc.usage(sb);
+    Printer.out.println(sb);
+  }
 }
