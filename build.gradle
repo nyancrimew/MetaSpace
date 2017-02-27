@@ -1,5 +1,7 @@
-apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'jacoco'
+mainClassName = 'ch.deletescape.metaspace.MetaSpace'
+applicationName = 'metaspace'
 repositories {
     jcenter()
 }
