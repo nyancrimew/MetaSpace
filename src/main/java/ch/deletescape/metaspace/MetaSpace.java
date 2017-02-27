@@ -15,13 +15,28 @@ public class MetaSpace {
 
   public static void main(String[] args) {
     MetaSpace metaSpace = new MetaSpace();
-    JCommander jc = new JCommander(metaSpace, args);
+    InitCommand init = new InitCommand();
+    JCommander jc = new JCommander(metaSpace);
+
+    jc.addCommand("init", init);
+    jc.parse(args);
+
     Printer.debug.mute(!metaSpace.debug || metaSpace.quiet);
     Printer.out.mute(metaSpace.quiet);
+
     if (metaSpace.usage) {
       usage(jc);
-    } else {
-      metaSpace.run();
+      return;
+    }
+
+    Printer.debug.println("Current directory: %s", System.getProperty("user.dir"));
+
+    switch (jc.getParsedCommand()) {
+      case "init":
+        init.run();
+        break;
+      default:
+        metaSpace.run();
     }
   }
 
