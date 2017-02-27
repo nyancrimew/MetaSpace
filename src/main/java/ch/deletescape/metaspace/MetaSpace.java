@@ -29,8 +29,6 @@ public class MetaSpace {
       return;
     }
 
-    Printer.debug.println("Current directory: %s", System.getProperty("user.dir"));
-
     switch (jc.getParsedCommand()) {
       case "init":
         init.run();
